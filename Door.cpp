@@ -1,18 +1,59 @@
 #include "Door.hpp"
 
-
-Door::Door(Room* room1, Room* room2)
+Door::Door(string directionToRoomA, Room* roomA, string directionToRoomB, Room* roomB)
 {
-    this->room1 = room1;
-    this->room2 = room2;
+    this->directionToRoomA = directionToRoomA;
+    this->directionToRoomB = directionToRoomB;
+    this->roomA = roomA;
+    this->roomB = roomB;
+
+    roomA->currentNumberOfDoors++;
+    int index = 0;
+    while(index < 10) 
+    {
+        if(roomA->collectionOfDoors[index] == NULL)
+        {
+            roomA->collectionOfDoors[index] = this;
+            break;
+        }
+        else
+        {
+            index++;
+        }
+    }
+    roomB->currentNumberOfDoors++;
+    int indexB = 0;
+    while(indexB < 10) 
+    {
+        if(roomA->collectionOfDoors[indexB] == NULL)
+        {
+            roomA->collectionOfDoors[indexB] = this;
+            break;
+        }
+        else
+        {
+            indexB++;
+        }
+    }
 }
 
-string Door::getRoom1Name()
+Room* Door::getRoomA()
 {
-    return this->room1->getRoomName();
+    return this->roomA;
+    
 }
 
-string Door::getRoom2Name()
+Room* Door::getRoomB()
 {
-    return this->room2->getRoomName();
+    return this->roomB;
+}
+
+string Door::getDirectionToRoomA()
+{
+    return this->directionToRoomA;
+}
+
+string Door::getDirectionToRoomB()
+{
+    return this->directionToRoomB;
 }
