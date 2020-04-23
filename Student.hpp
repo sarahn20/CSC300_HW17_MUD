@@ -1,19 +1,22 @@
 #ifndef Student_hpp
 #define Student_hpp
-#include <iostream>
+
+#include <string>
 
 using namespace std;
 
+class Room;
 class Student
 {
     private:
-        string studentName;
-        Student* nextStudent;
-        
+        string name;
+        Room* currentRoom;
+
     public:
-        Student(string studentName);
-        string getStudentName();
-        Student* getNextStudent();
-        void setNextStudent(Student* s);
+        Student(string name);
+        void setCurrentRoom(Room* rand);
+        Room* getCurrentRoom();
+        string getName();
 };
+
 #endif
