@@ -1,32 +1,31 @@
 #ifndef Room_hpp
 #define Room_hpp
-#include "LinkedList.hpp"
-#include "Door.hpp"
-#include "Door.cpp"
-#include <iostream>
+#include "LinkedListOfStudents.hpp"
+
+#include <string>
+
+class Door; // allows us to reference door when door refereneces Room.
+class Student;
 
 using namespace std;
 
 class Room
 {
     private:
-        Door* northDoor;
-        Door* southDoor;
-        Door* eastDoor;
-        Door* westDoor;
-        string roomName;
-
-    public:
-        Room(string roomName);
-        void setNorthDoor(Door* givenDoor);
-        void setSouthDoor(Door* givenDoor);
-        void setEastDoor(Door* givenDoor);
-        void setWestDoor(Door* givenDoor);
-        string getRoomName();
-        LinkedList* inhabitants;
-        void runMud();
-
+        string title;
         
     
+    public:
+        Room(string title);
+        Door* collectionOfDoors[10];
+        int currentNumberOfDoors;
+        void playGame();
+        void constructMap();
+        LinkedListOfStudents* ll;
+        string getTitle();
+        void onRoomEnter();
+        void inThisRoom();
+        Student* player1 = new Student("Sarah");
+
 };
 #endif
