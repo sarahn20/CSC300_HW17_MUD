@@ -1,21 +1,22 @@
 #include "Student.hpp"
 
-Student::Student(string studentName)
+Student::Student(string name)
 {
-    this->studentName = studentName;
+    this->name = name;
+    this->currentRoom = 0;
 }
 
-string Student::getStudentName()
+void Student::setCurrentRoom(Room* r)
 {
-    return this->studentName;
+    this->currentRoom = r;
 }
 
-Student* Student::getNextStudent()
+Room* Student::getCurrentRoom()
 {
-    return this->nextStudent;
+    return this->currentRoom;
 }
 
-void Student::setNextStudent(Student* s)
+string Student::getName()
 {
-    this->nextStudent = s;
+    return this->name;
 }
