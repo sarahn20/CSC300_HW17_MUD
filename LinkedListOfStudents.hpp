@@ -19,5 +19,4 @@ class LinkedListOfStudents
         StudentNode* getHead();
         int getCount();
 };
-
 #endif
