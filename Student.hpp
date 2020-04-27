@@ -11,12 +11,11 @@ class Student
     private:
         string name;
         Room* currentRoom;
-
+    
     public:
         Student(string name);
         void setCurrentRoom(Room* rand);
         Room* getCurrentRoom();
         string getName();
 };
-
 #endif
