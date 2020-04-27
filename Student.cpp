@@ -6,9 +6,9 @@ Student::Student(string name)
     this->currentRoom = 0;
 }
 
-void Student::setCurrentRoom(Room* r)
+void Student::setCurrentRoom(Room* rand) 
 {
-    this->currentRoom = r;
+    this->currentRoom = rand;
 }
 
 Room* Student::getCurrentRoom()
