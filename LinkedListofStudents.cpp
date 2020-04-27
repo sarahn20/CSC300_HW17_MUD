@@ -21,16 +21,6 @@ void LinkedListOfStudents::addFront(Student* s)
     this->count++;
 }
 
-int LinkedListOfStudents::getCount()
-{
-    return this->count;
-}
-
-StudentNode* LinkedListOfStudents::getHead()
-{
-    return this->head;
-}
-
 Student* LinkedListOfStudents::getAtIndex(int index)
 {
     //if they give us a bad index, return null
@@ -49,6 +39,11 @@ Student* LinkedListOfStudents::getAtIndex(int index)
     }
 }
 
+StudentNode* LinkedListOfStudents::getHead()
+{
+    return this->head;
+}
+
 Student* LinkedListOfStudents::removeAtIndex(int index)
 {
     //is the list empty or is index out of range?
@@ -64,9 +59,9 @@ Student* LinkedListOfStudents::removeAtIndex(int index)
         {
             //remove from front
             studentToReturn = this->head->getPayload();
-            StudentNode* nodeToDelete = this->head;
+            //StudentNode* nodeToDelete = this->head;
             this->head = this->head->getNextNode();
-            delete nodeToDelete;
+            //delete nodeToDelete;
         }
         else if(index == this->count - 1)
         {
@@ -101,23 +96,24 @@ Student* LinkedListOfStudents::removeAtIndex(int index)
     
 }
 
+int LinkedListOfStudents::getCount()
+{
+    return this->count;
+}
+
 int LinkedListOfStudents::indexOf(Student* s)
 {
-    int index = 0;
+    int pos = 0;
     StudentNode* currNode = this->head;
-    for(int i = 0; i < this->count; i++)
+    while(currNode->getNextNode())
     {
         if(currNode->getPayload() == s)
         {
-            break;
+            return pos;
         }
-        else
-        {
-            currNode = currNode->getNextNode();
-            index++;
-        }
+        pos++;
+        currNode = currNode->getNextNode();
         
     }
-    return index;
-
+    return -1;
 }
