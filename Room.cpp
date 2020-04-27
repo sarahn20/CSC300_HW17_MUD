@@ -12,114 +12,90 @@ Room::Room(string title)
     
 }
 
-void Room::constructMap()
+void Room::addDoor(Door* d)
 {
-    
-
-    Student* player2 = new Student("Mr. Gonzales");
-   
-    this->ll->addFront(player1);
-    this->ll->addFront(player2);
-    Room* hallway1_5 = new Room("Hallway 1.5"); //2
-    Room* hallway1 = new Room("Hallway 1"); //3
-    Room* hallway0 = new Room("Hallway 0"); //4
-    Room* classroom120 = new Room("Classroom 120"); //5
-    Room* lobby = new Room("Lobby"); //6
-    Room* esports = new Room("Esports"); //7
-    Room* locklairsOffice = new Room("Locklair's Office"); //8
-    Room* serverRoom = new Room("Server Room"); //9
-    Room* hallway2 = new Room("Hallway 2"); //10
-    Room* classroom118 = new Room("Classroom 118"); //11
-    Room* macLab2 = new Room("Mac Lab 2"); //12
-    Room* macLab1 = new Room("Mac Lab 1"); //13
-    Room* advLab1 = new Room("Advance Lab 2"); //14
-    Room* advLab2 = new Room("Advance Lab 1"); //15
-    player2->setCurrentRoom(hallway1);
-    Door* hw1_75ANDhw1_5 = new Door("East",this, "West", hallway1_5); //1
-    Door* hw1_5ANDhw1 = new Door("North",hallway1_5,"South", hallway1); //2
-    Door* hw1ANDhw0 = new Door("North", hallway1, "South", hallway0); //3
-    Door* hw0ANDclassroom120 = new Door("North", hallway0, "South", classroom 120); //4
-    Door* hw0ANDlobby = new Door("East", hallway0, "Wester", lobby); //5
-    Door* lobbyANDesports = new Door("North", lobby, "South", esports); //6
-    Door* lobbyANDlocklairsOffice = new Door("East", lobby, "West", locklairsOffice); //7
-    Door* lobbyANdserverRoom = new Door("South", lobby, "North", serverRoom); //8
-    Door* hw1_5ANDhw2 = new Door("North", hallway2, "South", hallway1_5); //9
-    Door* hw2ANDmacLab1 = new Door("North", macLab1, "South", hallway2); //10
-    Door* hw2ANDadvLab1 = new Door("East", advLab1, "West",hallway2); //11
-    Door* advLab1ANDadvLab2 = new Door("North", advLab2, "South", advLab1); //12
-    Door* macLab1ANDmacLab2 = new Door("West", macLab2, "East", macLab1); //13
-    Door* macLab2ANDclassroom118 = new Door("West", macLab2, "South", classroom118); //14
-    Door* hw2ANDclassroom118 = new Door("West", classroom118, "East", hallway2)
+    for(int i = 0; i < 10; i++)
+    {
+        if(this->collectionOfDoors[i] == 0)
+        {
+            this->collectionOfDoors[i] = d;
+            this->currentNumberOfDoors++;
+            break;
+        }
     }
+}
 
 string Room::getTitle()
 {
     return this->title;
 }
 
-void Room::onRoomEnter()
+void Room::startGame(Student* player, LinkedListOfStudents* ls)
 {
-    player1->setCurrentRoom(this);
-    cout << "You are in room: " << this->title << "\n";
-    this->inThisRoom();
-    this->collectionOfDoors;
-    for(int i = 0; i < 10; i++)
-    {
-        if(this->collectionOfDoors[i]->getRoomA() == this)
-        {
-            cout << "The " << this->collectionOfDoors[i]->getDirectionToRoomB() << " leads to " << this->collectionOfDoors[i]->getRoomB()->getTitle() << "\n";
-        } 
-        else if(this->collectionOfDoors[i]->getRoomB() == this)
-        {
-            cout << "The " << this->collectionOfDoors[i]->getDirectionToRoomA() << " leads to " << this->collectionOfDoors[i]->getRoomA()->getTitle() << "\n";
-        } 
-    }
-    string direction;
-    cout << "Enter the direction you would like to go: ";
-    cin >> direction;
-    for(int i = 0; i < 10; i++)
-    {
-        if(this->collectionOfDoors[i]->getRoomA() != this)
-        {
-            if(this->collectionOfDoors[i]->getDirectionToRoomA() == direction)
-            {
-                this->collectionOfDoors[i]->getRoomA()->onRoomEnter();
-            }
-            
-        } 
-        else if(this->collectionOfDoors[i]->getRoomB() != this)
-        {
-            if(this->collectionOfDoors[i]->getDirectionToRoomB() == direction)
-            {
-                this->collectionOfDoors[i]->getRoomB()->onRoomEnter();
-            }
-            
-        } 
-    }
-
-
-}
-
-void Room::inThisRoom()
-{
-    StudentNode* currNode = ll->getHead();
-    cout << "These are the students in the room: ";
-    while(int i = 0 < ll->getCount())
+    player->setCurrentRoom(this);
+    cout << "YOU ARE IN: " << this->getTitle() << "\n";
+    cout << "Students in " << this->getTitle() << " include: ";
+    StudentNode* currNode = ls->getHead();
+    for(int i = 0; i < ls->getCount(); i++)
     {
         if(currNode->getPayload()->getCurrentRoom() == this)
         {
-            cout << currNode->getPayload()->getName() << ", ";
+            if(currNode != ls->getHead())
+            {
+                cout << ", ";
+            }
+            cout << currNode->getPayload()->getName();
             
         }
         currNode = currNode->getNextNode();
-        i++;
-        
-
     }
-   
+    cout << "\n";
+    for(int i = 0; i < 10; i++) // displays all possible rooms to go to
+    {
+        if(this->collectionOfDoors[i] != 0)
+        {
+            if(this->collectionOfDoors[i]->getRoomA() == this)
+            {
+                cout << this->collectionOfDoors[i]->getRoomB()->getTitle() << " is through the " << this->collectionOfDoors[i]->getDirectionToRoomB() << " door" << "\n";
+            }
+            else if(this->collectionOfDoors[i]->getRoomB() == this)
+            {
+                cout << this->collectionOfDoors[i]->getRoomA()->getTitle() << " is through the " << this->collectionOfDoors[i]->getDirectionToRoomA() << " door" << "\n";
+            }
 
+        }
+    }
+    string userInput = "";
+    cout << "Enter the direction where you would like to go next: ";
+    cin >> userInput;
+    cout << "\n";
+    for(int j = 0; j < 10; j++)
+    {
+        for(int i = 0; i < 10; i++) //sends user to their seleted room
+        {
+            if(this->collectionOfDoors[i] != 0)
+            {
+                if(this->collectionOfDoors[i]->getRoomA() == this)
+                {
+                    if(userInput == this->collectionOfDoors[i]->getDirectionToRoomB())
+                    {
+                        this->collectionOfDoors[i]->getRoomB()->startGame(player, ls);
+                    }
+                
+                }
+                else if(this->collectionOfDoors[i]->getRoomB() == this)
+                {
+                    if(userInput == this->collectionOfDoors[i]->getDirectionToRoomA())
+                    {
+                        this->collectionOfDoors[i]->getRoomA()->startGame(player, ls);
+                    }
+                    
+                }
 
-
-
+            }
+            
+        }
+    }
+    cout << "*There's no door in that direction! Try again.*" << "\n";
+    this->startGame(player,ls);
 }
-
