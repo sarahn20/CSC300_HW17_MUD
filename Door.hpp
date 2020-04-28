@@ -22,6 +22,5 @@ class Door
         Room* getRoomB();
         string getDirectionToRoomA();
         string getDirectionToRoomB();
-
 };
 #endif
