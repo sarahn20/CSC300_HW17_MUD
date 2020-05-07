@@ -2,7 +2,7 @@
 #define Student_hpp
 
 #include <string>
-
+#include "Item.hpp"
 using namespace std;
 
 class Room;
@@ -11,11 +11,18 @@ class Student
     private:
         string name;
         Room* currentRoom;
-    
+        int maxItemCount;
+        int currentItemCount;
+        Item** backpack;
+
     public:
         Student(string name);
-        void setCurrentRoom(Room* rand);
-        Room* getCurrentRoom();
+        void displayBackpackContents();
+        bool addItem(Item* anItem);
+        Item* removeItem(string anItem);
         string getName();
+        Room* getCurrentRoom();
+        void setCurrentRoom(Room* aRoom);
 };
+
 #endif
